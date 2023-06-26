@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        registryCredential = 'ecr:us-east-1:awsjenkinsiam'
+        registryCredential = 'ecr:us-east-1:jenkins'
         appRegistry = "814019578945.dkr.ecr.us-east-1.amazonaws.com/rohitrrr"
         rohitRegistry = "https://814019578945.dkr.ecr.us-east-1.amazonaws.com"
         cluster = "Rohitrrr"
@@ -82,7 +82,7 @@ pipeline {
         }
         stage ('Deploy app to ECS') {
             steps {
-                withAWS(credentials: 'awsjenkinsiam', region: 'us-east-1') {
+                withAWS(credentials: 'jenkins', region: 'us-east-1') {
                     sh 'aws ecs update-service --cluster ${cluster} --service ${service} --task-definition ${taskfamily}:1 --desired-count ${desiredcount}'
                 }
             }
