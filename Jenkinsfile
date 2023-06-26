@@ -58,12 +58,6 @@ pipeline {
                 }
             }
         }
-        // stage('Publish to Nexus Artifactory') {
-        //     steps {
-        //     //
-        //     nexusArtifactUploader artifacts: [[artifactId: 'rohitapp', classifier: '', file: 'target/rohit-v2.war', type: 'war']], credentialsId: 'nexus', groupId: 'rohit-grp-repo', nexusUrl: '54.161.18.157:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'Hridak', version: '${BUILD_ID}'
-        //         }
-        // }
         stage ('Docker Build') {
             steps {
                 script {
