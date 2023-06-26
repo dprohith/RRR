@@ -2,11 +2,11 @@ pipeline {
     agent any
     environment {
         registryCredential = 'ecr:us-east-1:awsjenkinsiam'
-        appRegistry = "179426988817.dkr.ecr.us-east-1.amazonaws.com/hridak"
-        hridakRegistry = "https://179426988817.dkr.ecr.us-east-1.amazonaws.com"
-        cluster = "Hridak"
-        service = "hridaksvc"
-        taskfamily = "Hridak-TD"
+        appRegistry = "814019578945.dkr.ecr.us-east-1.amazonaws.com/rohitrrr"
+        rohitRegistry = "https://814019578945.dkr.ecr.us-east-1.amazonaws.com"
+        cluster = "Rohitrrr"
+        service = "rohitsvc"
+        taskfamily = "Rohit-TD"
         desiredcount = "2"
     }
 
@@ -19,7 +19,7 @@ pipeline {
         stage('Build') {
             steps {
                 // Get some code from a GitHub repository
-                git branch: 'docker', url: 'https://github.com/devopswala/AWSL-S.git'
+                git branch: 'main', url: 'https://github.com/dprohith/RRR.git'
 
                 // Run Maven on a Unix agent.
                 sh "mvn clean install"
@@ -61,7 +61,7 @@ pipeline {
         // stage('Publish to Nexus Artifactory') {
         //     steps {
         //     //
-        //     nexusArtifactUploader artifacts: [[artifactId: 'hridakapp', classifier: '', file: 'target/hridak-v2.war', type: 'war']], credentialsId: 'nexus', groupId: 'hridak-grp-repo', nexusUrl: '54.161.18.157:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'Hridak', version: '${BUILD_ID}'
+        //     nexusArtifactUploader artifacts: [[artifactId: 'rohitapp', classifier: '', file: 'target/rohit-v2.war', type: 'war']], credentialsId: 'nexus', groupId: 'rohit-grp-repo', nexusUrl: '54.161.18.157:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'Hridak', version: '${BUILD_ID}'
         //         }
         // }
         stage ('Docker Build') {
@@ -74,7 +74,7 @@ pipeline {
         stage ('Push DockerImage to ECR') {
             steps {
                 script {
-                docker.withRegistry( hridakRegistry, registryCredential ){
+                docker.withRegistry( rohitRegistry, registryCredential ){
                     dockerimage.push()
                 }
                 }
