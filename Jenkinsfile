@@ -10,6 +10,7 @@ pipeline {
         registryCredential = 'ecr:us-east-1:jenkins'
         appRegistry = "814019578945.dkr.ecr.us-east-1.amazonaws.com/rohitrrr"
         rohitRegistry = "https://814019578945.dkr.ecr.us-east-1.amazonaws.com"
+	slackChannel = '#jenkinscicd'    
     }
 
     tools {
