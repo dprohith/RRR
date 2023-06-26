@@ -80,7 +80,7 @@ pipeline {
         stage ('Deploy app to ECS') {
             steps {
                 withAWS(credentials: 'jenkins', region: 'us-east-1') {
-                    sh 'aws ecs update-service --cluster ${params.CLUSTER} --service ${params.SERVICE} --task-definition ${params.TASK_FAMILY}:1 --desired-count ${params.DESIRED_COUNT} --image ${appRegistry}:${BUILD_NUMBER}'
+                    sh 'aws ecs update-service --cluster ${CLUSTER} --service ${SERVICE} --task-definition ${TASK_FAMILY}:1 --desired-count ${DESIRED_COUNT} --image ${appRegistry}:${BUILD_NUMBER}'
                 }
             }
         }
