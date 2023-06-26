@@ -85,34 +85,14 @@ pipeline {
             }
         }
         stage('Notify Slack') {
-    steps {
-        script {
-            def buildStatus = currentBuild.currentResult
-            def username = env.BUILD_USER_ID ?: 'Unknown User'
-            def message
+	    steps {
+                echo 'Notifying Slack'
+                slackSend channel: '#jenkinscicd',
+                    color: '#439FE0',
+                    message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER} \n For More information see: ${env.BUILD_URL}"
 
-            if (buildStatus == 'FAILURE') {
-                message = "Build failed for Job ${env.JOB_NAME} (${env.BUILD_NUMBER}) triggered by ${username}."
-            } else if (buildStatus == 'ABORTED') {
-                message = "Build aborted for Job ${env.JOB_NAME} (${env.BUILD_NUMBER}) triggered by ${username}."
-            } else {
-                message = "Build success for Job ${env.JOB_NAME} (${env.BUILD_NUMBER}) triggered by ${username}."
             }
-
-            slackSend channel: slackChannel,
-                color: '#439FE0',
-                message: message
-        }
-    }
-    post {
-        failure {
-            script {
-                slackSend channel: slackChannel,
-                    color: 'danger',
-                    message: "Build failed for Job ${env.JOB_NAME} (${env.BUILD_NUMBER}) triggered by ${username}."
-            }
-        }
+	}
     }
 }
-}
-}
+
