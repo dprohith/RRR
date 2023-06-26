@@ -44,8 +44,8 @@ pipeline {
             }
             steps {
                 withSonarQubeEnv('SonarServer') {
-                    sh '''${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=visualpathit \
-                    -Dsonar.projectName=visualpathit \
+                    sh '''${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=RohithVKS \
+                    -Dsonar.projectName=RohithVKS \
                     -Dsonar.projectVersion=1.0 \
                     -Dsonar.sources=src/ \
                     -Dsonar.java.binaries=target/test-classes/com/visualpathit/account/controllerTest/ \
