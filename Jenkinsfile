@@ -22,7 +22,7 @@ pipeline {
         stage('Build') {
             steps {
                 // Get some code from a GitHub repository
-                git branch: 'main', url: 'https://github.com/dprohith/RRR.git'
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/dprohith/RRR.git']]])
 
                 // Run Maven on a Unix agent.
                 sh "mvn clean install"
