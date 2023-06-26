@@ -3,7 +3,7 @@ pipeline {
     parameters {
         string(name: 'CLUSTER', defaultValue: 'Rohitrrr', description: 'ECS Cluster name')
         string(name: 'SERVICE', defaultValue: 'rohitsvc', description: 'ECS Service name')
-        string(name: 'TASK_FAMILY', defaultValue: 'Rohit-TD', description: 'ECS Task family')
+        string(name: 'TASK_FAMILY', defaultValue: 'Rohit-TD', description: 'ECs Task family')
         string(name: 'DESIRED_COUNT', defaultValue: '2', description: 'Desired count of ECS tasks')
     }	
     environment {
