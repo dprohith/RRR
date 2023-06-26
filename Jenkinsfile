@@ -1,13 +1,15 @@
 pipeline {
     agent any
+    parameters {
+        string(name: 'CLUSTER', defaultValue: 'Rohitrrr', description: 'ECS Cluster name')
+        string(name: 'SERVICE', defaultValue: 'rohitsvc', description: 'ECS Service name')
+        string(name: 'TASK_FAMILY', defaultValue: 'Rohit-TD', description: 'ECS Task family')
+        string(name: 'DESIRED_COUNT', defaultValue: '2', description: 'Desired count of ECS tasks')
+    }	
     environment {
         registryCredential = 'ecr:us-east-1:jenkins'
         appRegistry = "814019578945.dkr.ecr.us-east-1.amazonaws.com/rohitrrr"
         rohitRegistry = "https://814019578945.dkr.ecr.us-east-1.amazonaws.com"
-        cluster = "Rohitrrr"
-        service = "rohitdpsvc"
-        taskfamily = "Rohit-TD"
-        desiredcount = "2"
     }
 
     tools {
@@ -77,7 +79,7 @@ pipeline {
         stage ('Deploy app to ECS') {
             steps {
                 withAWS(credentials: 'jenkins', region: 'us-east-1') {
-                    sh 'aws ecs update-service --cluster ${cluster} --service ${service} --task-definition ${taskfamily}:1 --desired-count ${desiredcount} --image ${appRegistry}:${BUILD_NUMBER}'
+                    sh 'aws ecs update-service --cluster ${params.CLUSTER} --service ${params.SERVICE} --task-definition ${params.TASK_FAMILY}:1 --desired-count ${params.DESIRED_COUNT} --image ${appRegistry}:${BUILD_NUMBER}'
                 }
             }
         }
